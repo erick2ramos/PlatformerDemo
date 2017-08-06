@@ -18,11 +18,9 @@ public class PlayerFallState : BaseState
 
     public override Vector3 ProcessMovement(Vector3 input)
     {
-
         MotorHelper.KillVector(ref input, machine.WallVector);
-        input *= MainManager.Get.settings.data.playerSpeed;
+        MotorHelper.ApplySpeed(ref input, machine.speed);
         MotorHelper.ApplyGravity(ref input, ref currentFallingSpeed, machine.Gravity, terminalVelocity);
-        //currentFallingSpeed -= (machine.Gravity * Time.deltaTime);
         return input;
     }
 

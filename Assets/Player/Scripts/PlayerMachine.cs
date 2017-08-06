@@ -19,13 +19,17 @@ public class PlayerMachine : MonoBehaviour
     public Vector3 MoveVector { get; set; }
     public Quaternion RotationQuaternion { get; set; }
     public Vector3 WallVector { get; set; }
+    public Vector3 CeilVector { get; set; }
     public Vector3 SlopeNormal { get; set; }
 
+    public float speed;
     public CollisionFlags ColFlags { set; get; }
+
 
     protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
+        speed = MainManager.Get.settings.data.playerSpeed;
         ChangeState("PlayerFallState");
     }
 
@@ -50,7 +54,9 @@ public class PlayerMachine : MonoBehaviour
     public virtual void Move()
     {
         ColFlags = controller.Move(MoveVector * Time.deltaTime);
-        WallVector = (((ColFlags & CollisionFlags.Sides) != 0) ? WallVector : Vector3.zero);
+        WallVector = (((ColFlags & CollisionFlags.Sides) != 0) || ((ColFlags & CollisionFlags.Below) != 0) ? 
+            WallVector : Vector3.zero);
+        CeilVector = (((ColFlags & CollisionFlags.Above) != 0) ? CeilVector : Vector3.zero);
     }
 
     public virtual void Rotate()
@@ -64,8 +70,24 @@ public class PlayerMachine : MonoBehaviour
         float yRay = controller.bounds.center.y - controller.bounds.extents.y + INNER_OFFSET_GROUNDED;
         RaycastHit hit;
 
-        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z), Vector3.down * DISTANCE_GROUNDED, Color.red);
+        //Raycast at center
         if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z),
+            Vector3.down, out hit, DISTANCE_GROUNDED))
+        {
+            return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
+        }
+
+        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
+        // Raycast at front
+        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED),
+            Vector3.down, out hit, DISTANCE_GROUNDED))
+        {
+            return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
+        }
+
+        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
+        // Raycast at back
+        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED),
             Vector3.down, out hit, DISTANCE_GROUNDED))
         {
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
@@ -85,9 +107,14 @@ public class PlayerMachine : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (Mathf.Abs(hit.normal.y) < 0.2f)
+        if (Mathf.Abs(hit.normal.y) < 0.7f)
         {
             WallVector = hit.normal;
+        }
+
+        if (hit.normal.y < 0)
+        {
+            CeilVector = hit.normal;
         }
     }
 }

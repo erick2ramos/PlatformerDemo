@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   playerSpeed: 5
-  playerJumpForce: 10
+  playerJumpForce: 8
   playerMaxLife: 5
   enemySpeed: 5
+  enemyCollisionDamage: 1
   bulletSpeed: 5
-  bulletDamage: 2
+  bulletDamage: 1

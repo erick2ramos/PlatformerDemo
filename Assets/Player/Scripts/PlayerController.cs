@@ -3,6 +3,19 @@
 public class PlayerController : Entity
 {
     public int collectablesAmount;
+    public PlayerMachine machine;
+
+    private void Start()
+    {
+        machine = GetComponent<PlayerMachine>();
+        collectablesAmount = 0;
+        Init();
+    }
+
+    public override void OnHit()
+    {
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {

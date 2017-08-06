@@ -7,7 +7,6 @@ public class PlayerWalkState : BaseState
 
     public override void Construct(params object[] parameters)
     {
-        currentSpeed = 0;
         base.Construct(parameters);
     }
 
@@ -18,7 +17,7 @@ public class PlayerWalkState : BaseState
         currentSpeed = Mathf.Min(currentSpeed + 1, speed);
         MotorHelper.FollowVector(ref input, machine.SlopeNormal);
         MotorHelper.KillVector(ref input, machine.WallVector);
-        input *= currentSpeed;
+        MotorHelper.ApplySpeed(ref input, currentSpeed);
         return input;
     }
 

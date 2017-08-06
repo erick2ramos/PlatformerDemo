@@ -5,15 +5,16 @@ public class BaseEnemy : MonoBehaviour
 {
     public delegate void EnemyState();
     public float timeAttacking = 3.0f;
+    public float minimalDistance = 5.0f;
 
     protected Transform target;
 
     protected float timer = 0.0f;
-    protected float minimalDistance = 5.0f;
     protected float speed;
     protected float collisionDamage;
     protected Vector3 attackDirection;
 
+    // Sets default values from settigs asset file
     public virtual void Init()
     {
         target = MainManager.Get.gameManager.player.transform;

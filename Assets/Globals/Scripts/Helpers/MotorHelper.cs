@@ -30,7 +30,7 @@ public static class MotorHelper
         if (toKill.z < 0 && vector.z > 0)
             vector.Set(vector.x, vector.y, (1 + toKill.z) * vector.z);
     }
-
+    
     public static void FollowVector(ref Vector3 vector, Vector3 slopeNormal)
     {
         Vector3 right = new Vector3(slopeNormal.y, -slopeNormal.x, 0).normalized;

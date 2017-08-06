@@ -7,21 +7,10 @@ public enum EnemyType
 }
 
 public class EnemyFactory : MonoBehaviour {
-    public static Entity CreateEnemy(EnemyType type)
+    public GameObject[] enemyPrefabs;
+        
+    public GameObject CreateEnemy(EnemyType type)
     {
-        switch (type)
-        {
-            case EnemyType.WalkE:
-                {
-                    break;
-                }
-            case EnemyType.ShootE:
-                {
-                    break;
-                }
-        }
-        GameObject go = new GameObject();
-        Entity e = go.AddComponent<Entity>();
-        return e;
+        return Instantiate(enemyPrefabs[(int)type]);
     }
 }

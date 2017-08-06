@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootEController : BaseEnemy {
-    // ShootE state machine
+    // ShootE state machine fields
     EnemyState[] states;
     public enum ShootE
     {
@@ -59,7 +59,7 @@ public class ShootEController : BaseEnemy {
         if(Mathf.Abs(target.position.z - transform.position.z) < minimalDistance)
         {
 
-            attackDirection = target.position.z > transform.position.z ? Vector3.back : Vector3.forward;
+            attackDirection = target.position.z < transform.position.z ? Vector3.back : Vector3.forward;
             Shoot(attackDirection);
             timer = timeAttacking;
             nextState = ShootE.Attack;
@@ -85,7 +85,7 @@ public class ShootEController : BaseEnemy {
         {
             if(!bullets[i].activeSelf)
             {
-                //bullets[i].GetComponent<BulletController>.Shoot(direction);
+                bullets[i].GetComponent<BulletController>().Shoot(shootPoint.position, direction);
                 break;
             }
         }

@@ -8,6 +8,7 @@ public class MainManager : MonoBehaviour
 
     public GameManager gameManager;
     public SettingsManager settings;
+    public LevelManager levelManager;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class MainManager : MonoBehaviour
             //loading pointers to other managers
             gameManager = GetComponent<GameManager>();
             settings = GetComponent<SettingsManager>();
+            levelManager = GetComponent<LevelManager>();
 
             DontDestroyOnLoad(gameObject);
         }

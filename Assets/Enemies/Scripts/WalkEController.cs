@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkEController : BaseEnemy {
-    // WalkE state machine
+    // WalkE state machine fields
     EnemyState[] states;
     public enum WalkEState
     {
@@ -46,7 +46,7 @@ public class WalkEController : BaseEnemy {
         if(Mathf.Abs(target.position.z - transform.position.z) < minimalDistance)
         {
 
-            attackDirection = target.position.z > transform.position.z ? Vector3.back : Vector3.forward;
+            attackDirection = target.position.z < transform.position.z ? Vector3.back : Vector3.forward;
             timer = timeAttacking;
             nextState = WalkEState.Attack;
         }
@@ -59,7 +59,7 @@ public class WalkEController : BaseEnemy {
             nextState = WalkEState.Idle;
         } else
         {
-            transform.Translate(attackDirection * speed);
+            transform.Translate(attackDirection * speed * Time.deltaTime);
             timer -= Time.deltaTime;
         }
     }
