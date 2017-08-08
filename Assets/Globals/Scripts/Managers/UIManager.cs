@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
-    public UIManager Get { get { return instance; } }
+    public static UIManager Get { get { return instance; } }
 
     // Pointers to ui elements
     Animator animator;
@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     public void ShowGoalMenu(int finalScore)
     {
         Hide();
+        scoreText.text = "" + finalScore;
         animator.SetBool("ShowGoalMenu", true);
 
     }

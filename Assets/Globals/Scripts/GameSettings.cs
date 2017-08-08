@@ -10,6 +10,7 @@ public class GameSettings : ScriptableObject {
     [Header("Enemy stats")]
     public float enemySpeed;
     public int enemyCollisionDamage;
+    public float enemySpawnChance;
 
     [Header("Projectile stats")]
     public float bulletSpeed;

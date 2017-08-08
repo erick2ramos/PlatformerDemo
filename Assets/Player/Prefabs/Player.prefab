@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114951828202525568}
   - component: {fileID: 114326329176199072}
   - component: {fileID: 114781833022669690}
+  - component: {fileID: 114331116149623864}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -72,7 +73,7 @@ Transform:
   m_GameObject: {fileID: 1187742563743820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4801510072957302}
   m_RootOrder: 0
@@ -84,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195363258948810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4801510072957302}
@@ -143,7 +144,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187742563743820}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114326329176199072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +157,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 0}
-  terminalVelocity: 25
+  terminalVelocity: 8
+--- !u!114 &114331116149623864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195363258948810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5a9a47916678f4ca15d83c7fdddf72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machine: {fileID: 0}
 --- !u!114 &114358584675297240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   currentState: {fileID: 0}
-  gravityModifier: 0
+  gravityModifier: 1
   speed: 0
 --- !u!114 &114781833022669690
 MonoBehaviour:

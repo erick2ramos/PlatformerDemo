@@ -7,14 +7,27 @@ public class PlayerController : Entity
 
     private void Start()
     {
+        Init();
+    }
+
+    public override void Init()
+    {
+        base.Init();
         machine = GetComponent<PlayerMachine>();
         collectablesAmount = 0;
-        Init();
+        inmunity = false;
+        machine.ChangeState("PlayerIdleState");
     }
 
     public override void OnHit()
     {
+        MainManager.Get.gameManager.cameraController.Shake();
+        UIManager.Get.hudObject.UpdateHealth((float)currentHitpoints / maxHitpoints);
+    }
 
+    public override void Kill()
+    {
+        MainManager.Get.gameManager.GameOver();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +37,7 @@ public class PlayerController : Entity
             CollectableController cc = other.GetComponent<CollectableController>();
             collectablesAmount += cc.scoreValue;
             // Send update to UI
+            UIManager.Get.hudObject.UpdateScore(collectablesAmount);
             cc.Collect();
         }
     }

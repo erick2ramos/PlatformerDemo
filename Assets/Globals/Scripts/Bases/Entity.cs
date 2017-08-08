@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (inmunity)
+            return;
         currentHitpoints = Mathf.Clamp(currentHitpoints - amount, 0, maxHitpoints);
         OnHit();
         if (!IsAlive)
@@ -36,7 +38,6 @@ public class Entity : MonoBehaviour
 
     public virtual void Kill()
     {
-        print("BOom");
         Destroy(gameObject);
     }
 }

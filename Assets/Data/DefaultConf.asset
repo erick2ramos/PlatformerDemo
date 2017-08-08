@@ -16,5 +16,6 @@ MonoBehaviour:
   playerMaxLife: 5
   enemySpeed: 5
   enemyCollisionDamage: 1
+  enemySpawnChance: 0.75
   bulletSpeed: 5
   bulletDamage: 1

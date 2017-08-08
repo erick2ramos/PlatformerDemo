@@ -9,6 +9,7 @@ public class MainManager : MonoBehaviour
     public GameManager gameManager;
     public SettingsManager settings;
     public LevelManager levelManager;
+    public SpawnerFactory spawner;
 
     private void Awake()
     {
@@ -20,8 +21,7 @@ public class MainManager : MonoBehaviour
             gameManager = GetComponent<GameManager>();
             settings = GetComponent<SettingsManager>();
             levelManager = GetComponent<LevelManager>();
-
-            DontDestroyOnLoad(gameObject);
+            spawner = GetComponent<SpawnerFactory>();
         }
         else
         {

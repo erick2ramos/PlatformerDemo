@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMachine : MonoBehaviour
 {
@@ -15,22 +13,28 @@ public class PlayerMachine : MonoBehaviour
     public float gravityModifier = 0.0f;
 
     public float Gravity { get { return gravityBase + gravityModifier; } }
+    // Directional input with absolute purpose
     public Vector3 InputVector { get; set; }
+
+    // Processed input for velocity and rotation (relative | deltas)
     public Vector3 MoveVector { get; set; }
     public Quaternion RotationQuaternion { get; set; }
+
+    // Collision vector with the normal of side walls
     public Vector3 WallVector { get; set; }
+    // Collision vector with the normal of ceilings
     public Vector3 CeilVector { get; set; }
+    // Normal of the floor
     public Vector3 SlopeNormal { get; set; }
 
     public float speed;
     public CollisionFlags ColFlags { set; get; }
 
-
     protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
         speed = MainManager.Get.settings.data.playerSpeed;
-        ChangeState("PlayerFallState");
+        //ChangeState("PlayerFallState");
     }
 
     void Update()

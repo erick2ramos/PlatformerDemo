@@ -5,9 +5,11 @@ public class FinishLineController : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            // Win the game tell the game manager 
+            // Wins the game, call the game manager 
             // to stop other entities and show final score
-            print("Win");
+            GetComponent<BoxCollider>().enabled = false;
+            MainManager.Get.gameManager.Win();
+            // Maybe play somekind of victory animation
         }
     }
 }
