@@ -44,6 +44,7 @@ public class ShootEController : BaseEnemy {
         {
 
             attackDirection = target.position.z < transform.position.z ? Vector3.back : Vector3.forward;
+            transform.rotation = Quaternion.LookRotation(attackDirection);
             Shoot(attackDirection);
             timer = timeAttacking;
             nextState = AIState.Attack;
