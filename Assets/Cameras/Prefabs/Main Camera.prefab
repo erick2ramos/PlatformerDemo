@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  timeToMove: 0.4
+  timeToMove: 0.35
   offsetZ: 4
   offsetY: 3.5
   gameX: 7

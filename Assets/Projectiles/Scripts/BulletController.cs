@@ -31,7 +31,7 @@ public class BulletController : MonoBehaviour
                 Finish();
             } else
             {
-                transform.Translate(direction * speed * Time.deltaTime);
+                transform.Translate(direction * speed * Time.deltaTime, Space.World);
                 timer -= Time.deltaTime;
             }
         }
@@ -42,6 +42,7 @@ public class BulletController : MonoBehaviour
     {
         transform.position = startingPosition;
         this.direction = direction;
+        transform.rotation = Quaternion.LookRotation(direction);
         timer = aliveTime;
         shot = true;
         gameObject.SetActive(true);

@@ -16,4 +16,15 @@ public class GameSettings : ScriptableObject {
     public float bulletSpeed;
     public int bulletDamage;
 
+
+    public static float defaultPlayerSpeed = 5;
+    public static float defaultPlayerJumpForce = 8;
+    public static int defaultPlayerMaxLife = 5;
+
+    public static float defaultEnemySpeed = 5;
+    public static int defaultEnemyCollisionDamage = 1;
+    public static float defaultEnemySpawnChance = 0.5f;
+
+    public static float defaultBulletSpeed = 5;
+    public static int defaultBulletDamage = 1;
 }
