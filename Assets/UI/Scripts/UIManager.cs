@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject goalMenu;
     public Text scoreText;
     public HUDController hudObject;
+    public GameObject touchInputUI;
 
     private void Start()
     {
@@ -41,6 +42,9 @@ public class UIManager : MonoBehaviour
     {
         Hide();
         animator.SetBool("ShowHud", true);
+#if UNITY_STANDALONE_WIN
+        touchInputUI.SetActive(false);
+#endif
     }
 
     public void ShowMainMenu()
@@ -61,6 +65,5 @@ public class UIManager : MonoBehaviour
         Hide();
         scoreText.text = "" + finalScore;
         animator.SetBool("ShowGoalMenu", true);
-
     }
 }

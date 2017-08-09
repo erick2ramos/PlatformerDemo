@@ -192,10 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7d32f934a41a64daadd0fcd1bfea00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeAttacking: 2
-  minimalDistance: 10
   currentState: 0
   nextState: 0
+  timeAttacking: 2
+  minimalDistance: 7
   bulletPrefab: {fileID: 1458504502607748, guid: 51215555c92dd644ba7bec9c91212eb3,
     type: 2}
   bullets: []

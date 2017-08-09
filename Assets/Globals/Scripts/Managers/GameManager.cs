@@ -39,15 +39,22 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
+        InputManager.Init();
         // Camera
         cameraController.ChangeState(CameraFollow.CameraState.Transition);
         // UI
         UIManager.Get.hudObject.UpdateHealth(player.currentHitpoints / (float)player.maxHitpoints);
         UIManager.Get.hudObject.UpdateScore(0);
         UIManager.Get.ShowHUD();
-        // Control to player
-        player.machine.ChangeState("PlayerWalkState");
+        
         // Activate enemies
+        // Control to player
+        Invoke("GivePlayerControl", 1.25f);
+    }
+
+    void GivePlayerControl()
+    {
+        player.machine.ChangeState("PlayerWalkState");
         MainManager.Get.spawner.ActivateSpawnedEnemies();
     }
 

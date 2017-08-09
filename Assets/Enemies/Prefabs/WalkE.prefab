@@ -166,4 +166,7 @@ MonoBehaviour:
   currentState: 0
   nextState: 0
   timeAttacking: 3
-  minimalDistance: 10
+  minimalDistance: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024

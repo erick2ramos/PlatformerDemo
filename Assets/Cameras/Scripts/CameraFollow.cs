@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -6,13 +7,9 @@ public class CameraFollow : MonoBehaviour
     public float timeToMove;
     public float offsetZ;
     public float offsetY;
-    public bool isChangingPosition;
 
     // Transition fields
-    public float startingX;
     public float gameX;
-
-    Vector3 finalPosition;
 
     // Camera state machine fields
     delegate void StateUpdate();
@@ -31,7 +28,8 @@ public class CameraFollow : MonoBehaviour
     public float shakeTime;
     float shakeTimer;
 
-    // Camera sway fields
+    Queue<Vector3> cameraTrack = new Queue<Vector3>();
+    int framesToTrack = 20;
 
     void Start()
     {
@@ -40,11 +38,11 @@ public class CameraFollow : MonoBehaviour
         states[(int)CameraState.MainMenu] = MainMenuUpd;
         states[(int)CameraState.Transition] = TransitionUpd;
         states[(int)CameraState.PlayMode] = PlayModeUpd;
-
     }
 
     public void Init()
     {
+        cameraTrack.Clear();
         followTarget = MainManager.Get.gameManager.player.transform;
     }
 
@@ -60,15 +58,20 @@ public class CameraFollow : MonoBehaviour
     // States functions
     void MainMenuUpd()
     {
-        // Do camera sway close to follow target
+        // SKip
     }
 
     void TransitionUpd()
     {
         Vector3 finalPosition = followTarget.position;
-        finalPosition.Set(gameX, (finalPosition.y + offsetY) * 0.5f, finalPosition.z + offsetZ);
+        finalPosition.Set(gameX, (finalPosition.y + offsetY) * 0.5f, finalPosition.z);
         transform.position = Vector3.Lerp(transform.position, finalPosition, Time.deltaTime / timeToMove);
-        if(Vector3.Distance(transform.position, finalPosition) < 0.1f)
+        if (cameraTrack.Count >= framesToTrack)
+        {
+            cameraTrack.Dequeue();
+        }
+        cameraTrack.Enqueue(finalPosition);
+        if (Mathf.Abs(transform.position.x - finalPosition.x) < 0.1f)
         {
             transform.position = finalPosition;
             nextState = CameraState.PlayMode;
@@ -77,12 +80,18 @@ public class CameraFollow : MonoBehaviour
 
     void PlayModeUpd()
     {
-        // Target smooth follow
+        // Target smooth follow, extrapolating movement
         Vector3 follow = followTarget.position;
-        float averageY = (follow.y + offsetY) / 2;
-        follow.Set(transform.position.x, averageY, follow.z + offsetZ);
-        finalPosition = follow;
-        transform.position = Vector3.Lerp(transform.position, finalPosition, Time.deltaTime / timeToMove);
+        if(cameraTrack.Count >= framesToTrack)
+        {
+            cameraTrack.Dequeue();
+        }
+        cameraTrack.Enqueue(follow);
+        Vector3[] track = cameraTrack.ToArray();
+        follow.z += (track[cameraTrack.Count - 1].z - track[0].z) * offsetZ;
+        follow.Set(transform.position.x, (followTarget.position.y + offsetY) * 0.5f, follow.z);
+        transform.position = Vector3.Lerp(transform.position, follow, Time.deltaTime / timeToMove);
+
 
         // Camera shake behaviour
         if (shakeTimer > 0)        {            transform.position += new Vector3(Mathf.Log(shakeTimer + 1f) * Mathf.Cos(shakeTimer * 90f), 0, 0);            shakeTimer -= Time.deltaTime;        }
@@ -91,17 +100,12 @@ public class CameraFollow : MonoBehaviour
 
     public void MoveCameraTo(Vector3 newPos)
     {
-        finalPosition = newPos;
+        transform.position = newPos;
     }
 
     public void ChangeState(CameraState newState)
     {
         nextState = newState;
-    }
-
-    void Sway()
-    {
-
     }
 
     public void Shake()

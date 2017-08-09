@@ -106,14 +106,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  timeToMove: 0.35
-  offsetZ: 1.5
-  offsetY: 2.5
-  isChangingPosition: 0
-  startingX: 0
+  timeToMove: 0.4
+  offsetZ: 4
+  offsetY: 3.5
   gameX: 7
   nextState: 0
-  shakeTime: 0.2
+  shakeTime: 1
 --- !u!124 &124987846939768756
 Behaviour:
   m_ObjectHideFlags: 1
