@@ -81,12 +81,11 @@ public class PlayerMachine : MonoBehaviour
 
         //Raycast at center
         if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z),
-            Vector3.down, out hit, DISTANCE_GROUNDED))
+            Vector3.down, out hit, DISTANCE_GROUNDED * 0.5f))
         {
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
         }
 
-        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
         // Raycast at front
         if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED),
             Vector3.down, out hit, DISTANCE_GROUNDED))
@@ -94,7 +93,6 @@ public class PlayerMachine : MonoBehaviour
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
         }
 
-        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
         // Raycast at back
         if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED),
             Vector3.down, out hit, DISTANCE_GROUNDED))
