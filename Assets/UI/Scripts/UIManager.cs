@@ -35,7 +35,6 @@ public class UIManager : MonoBehaviour
         animator.SetBool("ShowRetryMenu", false);
         animator.SetBool("ShowGoalMenu", false);
         animator.SetBool("ShowHud", false);
-
     }
 
     public void ShowHUD()
@@ -44,6 +43,15 @@ public class UIManager : MonoBehaviour
         animator.SetBool("ShowHud", true);
 #if UNITY_STANDALONE_WIN
         touchInputUI.SetActive(false);
+#endif
+#if UNITY_ANDROID
+        if (MainManager.Get.settings.gameMode == GameMode.Runner)
+        {
+            touchInputUI.SetActive(false);
+        } else
+        {
+            touchInputUI.SetActive(true);
+        }
 #endif
     }
 

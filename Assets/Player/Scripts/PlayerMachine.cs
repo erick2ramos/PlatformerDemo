@@ -4,7 +4,7 @@ public class PlayerMachine : MonoBehaviour
 {
     private const float SLOPE_TRESHOLD = 0.55f;
     private const float DISTANCE_GROUNDED = 0.2f;
-    private const float INNER_OFFSET_GROUNDED = 0.15f;
+    private const float INNER_OFFSET_GROUNDED = 0.01f;
 
     public CharacterController controller;
     public BaseState currentState;
@@ -46,6 +46,11 @@ public class PlayerMachine : MonoBehaviour
     {
         InputVector = InputManager.GetDirectionInput();
 
+        if(MainManager.Get.settings.gameMode == GameMode.Runner)
+        {
+            InputVector = new Vector3(0, 0, 1.0f);
+        }
+
         MoveVector = currentState.ProcessMovement(InputVector);
         RotationQuaternion = currentState.ProcessRotation(InputVector);
 
@@ -81,17 +86,17 @@ public class PlayerMachine : MonoBehaviour
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
         }
 
-        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
+        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
         // Raycast at front
-        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED),
+        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z + controller.bounds.extents.z - INNER_OFFSET_GROUNDED),
             Vector3.down, out hit, DISTANCE_GROUNDED))
         {
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;
         }
 
-        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
+        Debug.DrawRay(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED), Vector3.down * DISTANCE_GROUNDED);
         // Raycast at back
-        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED),
+        if (Physics.Raycast(new Vector3(controller.bounds.center.x, yRay + 0.25f, controller.bounds.center.z - controller.bounds.extents.z + INNER_OFFSET_GROUNDED),
             Vector3.down, out hit, DISTANCE_GROUNDED))
         {
             return (SlopeNormal = hit.normal).y > SLOPE_TRESHOLD;

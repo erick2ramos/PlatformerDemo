@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
     public void Play()
     {
         InputManager.Init();
+
+        // Start player 
+        player.Init();
         // Camera
         cameraController.ChangeState(CameraFollow.CameraState.Transition);
         // UI
@@ -88,12 +91,12 @@ public class GameManager : MonoBehaviour
         Vector3 cameraStart = cameraPrefab.transform.position;
         // Reset Player
         player.transform.position = playerStart;
-        player.Init();
+
         // Reset Camera
         cameraController.Init();
         cameraController.MoveCameraTo(cameraStart);
 
-        Invoke("Play", 1.25f);
+        UIManager.Get.ShowMainMenu();
     }
 
     public void GameOver()
@@ -101,6 +104,7 @@ public class GameManager : MonoBehaviour
         // Remove control from player
         player.machine.ChangeState("PlayerIdleState");
         player.inmunity = true;
+        player.hit = false;
 
         // Disable AI and bullets
         MainManager.Get.spawner.DeactivateSpawnedEnemies();
