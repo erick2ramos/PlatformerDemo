@@ -34,7 +34,6 @@ public class PlayerMachine : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         speed = MainManager.Get.settings.data.playerSpeed;
-        //ChangeState("PlayerFallState");
     }
 
     void Update()

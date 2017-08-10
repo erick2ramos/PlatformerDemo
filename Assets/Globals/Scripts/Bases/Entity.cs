@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Base class for player and enemies
+// Base class for player
 public class Entity : MonoBehaviour
 {
     public int maxHitpoints = 5;
