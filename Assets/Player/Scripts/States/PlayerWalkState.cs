@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerWalkState : BaseState
 {
@@ -23,7 +22,9 @@ public class PlayerWalkState : BaseState
 
     public override Quaternion ProcessRotation(Vector3 input)
     {
-        return base.ProcessRotation(input);
+        input.Set(0, 0, input.z);
+        if(input.sqrMagnitude == 0) { return base.ProcessRotation(input); }
+        return Quaternion.LookRotation(input);
     }
 
     public override void Transition()

@@ -16,6 +16,8 @@ public class GameSettings : ScriptableObject {
     public float bulletSpeed;
     public int bulletDamage;
 
+    [Header("Collectables stats")]
+    public int collectableScoreValue;
 
     public static float defaultPlayerSpeed = 5;
     public static float defaultPlayerJumpForce = 8;
@@ -27,4 +29,6 @@ public class GameSettings : ScriptableObject {
 
     public static float defaultBulletSpeed = 5;
     public static int defaultBulletDamage = 1;
+
+    public static int defaultCollectableScoreValue = 1;
 }

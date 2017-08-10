@@ -16,6 +16,9 @@ public class MainManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+#if UNITY_ANDROID
+            Screen.orientation = ScreenOrientation.Landscape;
+#endif
 
             //loading pointers to other managers
             gameManager = GetComponent<GameManager>();

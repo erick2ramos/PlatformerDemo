@@ -19,3 +19,4 @@ MonoBehaviour:
   enemySpawnChance: 0.5
   bulletSpeed: 5
   bulletDamage: 1
+  collectableScoreValue: 1

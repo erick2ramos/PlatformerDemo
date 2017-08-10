@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CollectableController : MonoBehaviour {
     public int scoreValue;
@@ -8,6 +6,12 @@ public class CollectableController : MonoBehaviour {
     private void Start()
     {
         // Should init scoreValue from settings file
+        scoreValue = MainManager.Get.settings.data.collectableScoreValue;
+    }
+
+    private void Update()
+    {
+        transform.rotation *= Quaternion.AngleAxis(20 * Time.deltaTime, Vector3.up); 
     }
 
     public void Collect()

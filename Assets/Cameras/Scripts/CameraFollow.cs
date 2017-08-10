@@ -61,6 +61,7 @@ public class CameraFollow : MonoBehaviour
         // SKip
     }
 
+    // Moves the camera to gameplay position
     void TransitionUpd()
     {
         Vector3 finalPosition = followTarget.position;
@@ -82,21 +83,21 @@ public class CameraFollow : MonoBehaviour
     {
         // Target smooth follow, extrapolating movement
         Vector3 follow = followTarget.position;
-        if(cameraTrack.Count >= framesToTrack)
+        if(shakeTimer <= 0)
         {
-            cameraTrack.Dequeue();
-        }
-        cameraTrack.Enqueue(follow);
-        Vector3[] track = cameraTrack.ToArray();
-        follow.z += (track[cameraTrack.Count - 1].z - track[0].z) * offsetZ;
-        follow.Set(transform.position.x, (followTarget.position.y + offsetY) * 0.5f, follow.z);
-        transform.position = Vector3.Lerp(transform.position, follow, Time.deltaTime / timeToMove);
-
-
-        // Camera shake behaviour
-        if (shakeTimer > 0)        {            transform.position += new Vector3(Mathf.Log(shakeTimer + 1f) * Mathf.Cos(shakeTimer * 90f), 0, 0);            shakeTimer -= Time.deltaTime;        }
+            if(cameraTrack.Count >= framesToTrack)
+            {
+                cameraTrack.Dequeue();
+            }
+            cameraTrack.Enqueue(follow);
+            Vector3[] track = cameraTrack.ToArray();
+            follow.z += (track[cameraTrack.Count - 1].z - track[0].z) * offsetZ;
+            follow.Set(transform.position.x, (followTarget.position.y + offsetY) * 0.5f, follow.z);
+            transform.position = Vector3.Lerp(transform.position, follow, Time.deltaTime / timeToMove);
+        } else
+        {            // Camera shake behaviour
+            transform.position += new Vector3(0, Mathf.Log(shakeTimer + 1f) * Mathf.Cos(shakeTimer * 90f), 0);            shakeTimer -= Time.deltaTime;        }
     }
-    //
 
     public void MoveCameraTo(Vector3 newPos)
     {
@@ -110,5 +111,5 @@ public class CameraFollow : MonoBehaviour
 
     public void Shake()
     {
-        shakeTime = shakeTimer;    }
+        shakeTimer = shakeTime;    }
 }

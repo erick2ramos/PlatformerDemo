@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public static class MotorHelper
 {
@@ -17,6 +16,7 @@ public static class MotorHelper
         return verticalVelocity;
     }
 
+    // Removes component in vector acording to toKill
     public static void KillVector(ref Vector3 vector, Vector3 toKill)
     {
         toKill.Set(toKill.x, 0, toKill.z);
@@ -31,6 +31,7 @@ public static class MotorHelper
             vector.Set(vector.x, vector.y, (1 + toKill.z) * vector.z);
     }
     
+    // Sets vector to be parallel to the floor
     public static void FollowVector(ref Vector3 vector, Vector3 slopeNormal)
     {
         Vector3 right = new Vector3(slopeNormal.y, -slopeNormal.x, 0).normalized;

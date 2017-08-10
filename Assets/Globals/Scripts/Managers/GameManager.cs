@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
         // Remove control from player
         player.machine.ChangeState("PlayerIdleState");
         player.inmunity = true;
+        player.hit = false;
 
         // Disable AI and bullets
         MainManager.Get.spawner.DeactivateSpawnedEnemies();
@@ -110,6 +111,6 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
-
+        Application.Quit();
     }
 }

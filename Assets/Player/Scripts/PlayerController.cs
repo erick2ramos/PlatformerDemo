@@ -4,9 +4,11 @@ public class PlayerController : Entity
 {
     public int collectablesAmount;
     public PlayerMachine machine;
+    MeshRenderer meshRenderer;
 
     private void Start()
     {
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         Init();
     }
 
@@ -19,8 +21,21 @@ public class PlayerController : Entity
         machine.ChangeState("PlayerIdleState");
     }
 
+    protected override void Update()
+    {
+        if(inmunity && hit)
+        {
+            meshRenderer.enabled = !meshRenderer.enabled;
+        } else
+        {
+            meshRenderer.enabled = true;
+        }
+        base.Update();
+    }
+
     public override void OnHit()
     {
+        machine.ChangeState("PlayerHitState");
         MainManager.Get.gameManager.cameraController.Shake();
         UIManager.Get.hudObject.UpdateHealth((float)currentHitpoints / maxHitpoints);
     }

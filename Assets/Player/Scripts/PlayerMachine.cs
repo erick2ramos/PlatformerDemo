@@ -65,7 +65,7 @@ public class PlayerMachine : MonoBehaviour
 
     public virtual void Rotate()
     {
-        transform.rotation *= RotationQuaternion;
+        transform.rotation = Quaternion.Lerp(transform.rotation,  RotationQuaternion, 25 * Time.deltaTime);
     }
 
     // Function to check if state machine owner is currently on the ground

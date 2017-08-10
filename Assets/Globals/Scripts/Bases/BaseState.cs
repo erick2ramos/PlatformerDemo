@@ -9,5 +9,5 @@ public class BaseState : MonoBehaviour
     public virtual void Destruct() { }
     public virtual void Transition() { }
     public virtual Vector3 ProcessMovement(Vector3 input) { return input; }
-    public virtual Quaternion ProcessRotation(Vector3 input) { return Quaternion.identity; }
+    public virtual Quaternion ProcessRotation(Vector3 input) { return transform.rotation; }
 }

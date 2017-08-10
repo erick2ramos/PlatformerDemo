@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShootEController : BaseEnemy {
     // Bullet fields
@@ -44,7 +42,7 @@ public class ShootEController : BaseEnemy {
         {
 
             attackDirection = target.position.z < transform.position.z ? Vector3.back : Vector3.forward;
-            transform.rotation = Quaternion.LookRotation(attackDirection);
+            targetRotation = Quaternion.LookRotation(attackDirection);
             Shoot(attackDirection);
             timer = timeAttacking;
             nextState = AIState.Attack;

@@ -15,6 +15,6 @@ public class ButtonAction : MonoBehaviour {
 
     public void Quit()
     {
-        Application.Quit();
+        MainManager.Get.gameManager.Quit();
     }
 }

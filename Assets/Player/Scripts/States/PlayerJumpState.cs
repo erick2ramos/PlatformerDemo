@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerJumpState : BaseState
 {
@@ -22,6 +21,13 @@ public class PlayerJumpState : BaseState
         currentJumpForce -= (machine.Gravity * Time.deltaTime);
 
         return base.ProcessMovement(input);
+    }
+
+    public override Quaternion ProcessRotation(Vector3 input)
+    {
+        input.Set(0, 0, input.z);
+        if (input.sqrMagnitude == 0) { return base.ProcessRotation(input); }
+        return Quaternion.LookRotation(input);
     }
 
     public override void Transition()

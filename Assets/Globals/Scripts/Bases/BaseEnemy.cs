@@ -26,12 +26,15 @@ public class BaseEnemy : MonoBehaviour
     protected float collisionDamage;
     protected Vector3 attackDirection;
 
+    protected Quaternion targetRotation;
+
     // Sets default values from settigs asset file
     public virtual void Init()
     {
         target = MainManager.Get.gameManager.player.transform;
         speed = MainManager.Get.settings.data.enemySpeed;
         collisionDamage = MainManager.Get.settings.data.enemyCollisionDamage;
+        targetRotation = transform.rotation;
     }
 
     void Update()
@@ -44,6 +47,8 @@ public class BaseEnemy : MonoBehaviour
         {
             states[(int)currentState]();
         }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 25 * Time.deltaTime);
     }
 
     // Checks for collision with player to do damage
